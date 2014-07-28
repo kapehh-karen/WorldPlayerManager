@@ -1,0 +1,9 @@
+name: WorldPlayerManager
+main: me.kapehh.WorldPlayerManager.WorldPlayerManager
+author: kapehh
+version: 1.0.0
+commands:
+    worldplayermanager:
+        usage: /<command> [args]
+        aliases: wpm
+        description: Manual on GitHub
