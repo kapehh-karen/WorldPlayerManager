@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 /**
@@ -50,6 +51,18 @@ public class WorldPlayerManagerListener implements Listener {
         if (managerMain.getWorlds().contains(worldName)) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(ChatColor.RED + "World '" + worldName + "' closed!");
+        }
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if (WorldPlayerManager.getPermission().has(event.getPlayer(), WorldPlayerManagerPermissions.PERM_ADMIN)) {
+            return;
+        }
+        WorldPlayerManagerMain managerMain = WorldPlayerManager.getWorldPlayerManagerMain();
+        String worldName = event.getRespawnLocation().getWorld().getName();
+        if (managerMain.getWorlds().contains(worldName)) {
+            event.setRespawnLocation(managerMain.getMainWorld().getSpawnLocation());
         }
     }
 }
